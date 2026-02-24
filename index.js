@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // Inicializar funciones
     initNavigation();
-    // Aquí podrías inicializar otras partes: initHero(), initForm(), etc.
+    initContactForm();
 });
 
 /**
@@ -14,27 +12,24 @@ function initNavigation() {
     const closeBtn = document.getElementById('close-menu');
     const menuLinks = document.querySelectorAll('.menu-item');
 
-    // Abrir
     if (openBtn) {
         openBtn.addEventListener('click', () => {
             menu.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Bloquea el scroll al estar abierto
+            document.body.style.overflow = 'hidden';
         });
     }
 
-    // Cerrar
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
             menu.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Libera el scroll
+            document.body.style.overflow = ''; // Regresa al estado del CSS
         });
     }
 
-    // Cerrar al clickear cualquier link
     menuLinks.forEach(link => {
         link.addEventListener('click', () => {
             menu.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = ''; // Consistencia al cerrar
         });
     });
 }
@@ -47,24 +42,45 @@ function initContactForm() {
     
     if (!contactForm) return;
 
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+
     contactForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Evita que la página se recargue
+        e.preventDefault();
 
         const formData = new FormData(contactForm);
+        
+        // IMPORTANTE: Netlify necesita el campo "form-name" para procesar el envío AJAX
+        // "contacto-portfolio" debe coincidir con el atributo name de tu <form>
+        const params = new URLSearchParams(formData);
+        params.append("form-name", "contacto-portfolio");
 
-        // Envío mediante Fetch optimizado para Netlify
+        if(submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Enviando...";
+        }
+
         fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(formData).toString(),
+            body: params.toString(),
         })
-        .then(() => {
-            alert("¡Mensaje enviado con éxito! Me pondré en contacto pronto.");
-            contactForm.reset(); // Limpia los campos del formulario
+        .then((response) => {
+            if (response.ok) {
+                alert("¡Mensaje enviado con éxito! Me pondré en contacto pronto.");
+                contactForm.reset();
+            } else {
+                throw new Error("Error en la respuesta del servidor");
+            }
         })
         .catch((error) => {
             alert("Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.");
             console.error("Error en el envío:", error);
+        })
+        .finally(() => {
+            if(submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Contactanos";
+            }
         });
     });
 }

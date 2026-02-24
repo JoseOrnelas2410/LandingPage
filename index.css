@@ -332,7 +332,7 @@ body {
 .benefit-card {
     position: relative;
     width: 320px;
-    height: auto; /* Aumentado ligeramente para acomodar más texto */
+    height: auto;
     border-radius: 12px;
     background-color: #111827;
     overflow: hidden;
@@ -340,7 +340,6 @@ body {
     padding: 1px;
 }
 
-/* El resplandor de fondo */
 .benefit-glow {
     position: absolute;
     width: 240px;
@@ -357,7 +356,7 @@ body {
 .information-card{
     width: 15rem;
     position: relative;
-    height: auto; /* Aumentado ligeramente para acomodar más texto */
+    height: auto;
     border-radius: 12px;
     background-color: #111827;
     overflow: hidden;
@@ -482,7 +481,11 @@ body {
     max-width: 250px;
 }
 
-.legal-text span { color: #fff; font-weight: 500; }
+.legal-text a,span { 
+    color: #6366f1; 
+    font-weight: 500; 
+    text-decoration: none;
+}
 
 /* --- FOOTER --- */
 
@@ -625,6 +628,15 @@ body {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+.contact-container{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.contact-container svg{
+    size: 16px;
+}
 
 
 
@@ -704,13 +716,12 @@ body {
     .menu-links {
         flex-direction: column;
         align-items: center;
-        gap: 35px;
+        gap: 4rem;
     }
 
     .menu-item { 
-        font-size: 28px;
+        font-size: 16px;
         text-transform: uppercase;
-        padding-bottom: 3rem;
     }
 
     .btn-close-menu {
