@@ -47,6 +47,13 @@ body {
     font-weight: bold;
 }
 
+.nav-logo span {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+
 /* --- NAVEGACIÓN --- */
 .nav-menu {
     display: flex;
@@ -117,6 +124,7 @@ body {
 }
 
 .line-break {
+    color: white;
     display: block;
     width: 100%;
 }
