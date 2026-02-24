@@ -486,10 +486,11 @@ body {
 .legal-text {
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.6);
-    max-width: 250px;
+    width: 25rem;
 }
 
 .legal-text a,span { 
+    flex-grow: 1;
     color: #6366f1; 
     font-weight: 500; 
     text-decoration: none;
@@ -736,6 +737,15 @@ body {
         position: absolute;
         top: 20px;
         right: 20px;
+    }
+
+    .form-footer{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .legal-text{
+        width: 100%;
     }
 
     .main-footer {
